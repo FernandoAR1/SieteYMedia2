@@ -28,17 +28,17 @@ fun App(game: SieteYMedia) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(valores ,color=Color.Blue)
+            Text(valores)
             Spacer(modifier = Modifier.height(34.dp))
             Text(info, color = if (info == "Has perdido") Color.Red else Color.Green)
             Spacer(modifier = Modifier.height(34.dp))
-            Text(pantalla ,color=Color.Blue)
+            Text(pantalla)
             Spacer(modifier = Modifier.height(68.dp))
             Row {
                 Button(onClick =
                 {
                     game.turnoBanca()
-                    pantalla = game.mostrarCartas(game.cartasBanca)
+                    pantalla = " Tus Cartas: \n" + game.mostrarCartas(game.cartasJugador) + "\n\n Cartas Banca: \n" + game.mostrarCartas(game.cartasBanca)
                     valores = "Tu Valor: ${valor}     Valor Banca: ${game.valorCartas(game.cartasBanca)}"
                     if (game.valorCartas(game.cartasBanca) >= valor && game.valorCartas(game.cartasBanca) <= 7.5) {
                         info = "Has perdido"
@@ -56,7 +56,7 @@ fun App(game: SieteYMedia) {
                 Button(onClick =
                 {
                     game.turnoJugador()
-                    pantalla = game.mostrarCartas(game.cartasJugador)
+                    pantalla = " Tus Cartas: \n" + game.mostrarCartas(game.cartasJugador)
                     valor = game.valorCartas(game.cartasJugador);
                     valores = "Tu Valor: ${valor}     Valor Banca: ${game.valorCartas(game.cartasBanca)}"
                     if (valor > 7.5) {
@@ -74,7 +74,7 @@ fun App(game: SieteYMedia) {
 }
 
 fun main() = application {
-    Window(onCloseRequest = ::exitApplication) {
+    Window(onCloseRequest = ::exitApplication, title = "Siete Y Media") {
         val game= SieteYMedia()
         App(game)
     }
